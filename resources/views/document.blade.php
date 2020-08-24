@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Add Document</div>
                 <div class="card-body">
@@ -13,43 +13,38 @@
                             {{Session::get('flash_message_success')}}
                         </div>
                     @endif
-                    <form action="/document_type" method="POST" autocomplete="off">
+                    <form action="/document" method="POST" autocomplete="off">
                         {{csrf_field()}}
-                        <div class="container noprint">
+                        <div class="container">
                             <div class="form-group">
-                                <label for="documentType">Document Type</label>
+                                <label for="documentYear">Document Year *</label>
+                                <input type="number" class="form-control" name="documentYear" id="documentYear" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentNo">Document No. *</label>
+                                <input type="text" class="form-control" name="documentNo" id="documentNo" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentType">Document Type *</label>
                                 <input type="text" class="form-control" name="documentType" id="documentType" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <input type="text" class="form-control" name="subject" id="subject" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Title *</label>
+                                <input type="text" class="form-control" name="title" id="title" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="uploadFile">Upload File</label>
+                                <input type="file" class="form-control" name="uploadFile" id="uploadFile" required/>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary float-right">Save Document Type</button>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Document Type</div>
-                <div class="card-body">
-                    <table id="table" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Document Type</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($record as $record)
-                                <tr>
-                                    <td>{{$record->id}}</td>
-                                    <td>{{$record->document_type}}</td>
-                                    <td></td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

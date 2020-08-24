@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\DocumentType;
 use App\Subject;
+use App\Document;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -43,7 +44,9 @@ class DocumentController extends Controller
     }
 
     public function document(){
-
+        $record = Document::where('state','=','1')
+                    ->get();
+        return view('document',['record'=>$record]);
     }
 
     public function documentSave(){
