@@ -242,21 +242,30 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Document',
+            'url'  => 'document',
+            'icon' => 'fa-fw fas fa-file-alt',
         ],
-        ['header' => 'account_settings'],
+        
+        ['header' => 'SETTINGS'],
+        [
+            'text' => 'Subject',
+            'url'  => 'subject',
+            'icon' => 'fas fa-fw fa-clipboard',
+        ],
+        [
+            'text' => 'Document Type',
+            'url'  => 'document_type',
+            'icon' => 'far fa-fw fa-file',
+        ],
         [
             'text' => 'User Management',
-            'url'  => 'admin/settings',
+            'url'  => 'user_management',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'url'  => 'password',
             'icon' => 'fas fa-fw fa-lock',
         ],
         
@@ -300,7 +309,7 @@ return [
     'plugins' => [
         [
             'name' => 'Datatables',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -325,7 +334,7 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
                 ],
                 [
