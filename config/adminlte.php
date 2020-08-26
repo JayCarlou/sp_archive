@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'SP e-Archive',
+    'title' => 'SP eArchive',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>SP</b> e-Archive',
+    'logo' => '<b>SP</b> eArchive',
     'logo_img' => 'vendor/adminlte/dist/img/archive.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -246,7 +246,11 @@ return [
             'url'  => 'document',
             'icon' => 'fa-fw fas fa-file-alt',
         ],
-        
+        [
+            'text' => 'Archive',
+            'url'  => 'archive',
+            'icon' => 'fa-fw fas fa-file-archive',
+        ],
         ['header' => 'SETTINGS'],
         [
             'text' => 'Subject',

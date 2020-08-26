@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Add Document</div>
+                <div class="card-header">Edit Document</div>
                 <div class="card-body">
                     @if(Session::has('flash_message_success'))
                         <div class="alert alert-success" role="alert">
@@ -13,21 +13,22 @@
                             {{Session::get('flash_message_success')}}
                         </div>
                     @endif
-                    <form action="/document" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
+                    <form action="/document_edit" method="POST">
                         {{csrf_field()}}
+                        <input type="hidden" name="docId" id="docId" value="{{$documentId}}">
                         <div class="container">
                             <div class="form-group">
                                 <label for="documentYear">Document Year *</label>
-                                <input type="number" class="form-control" name="documentYear" id="documentYear" required/>
+                                <input type="number" class="form-control" name="documentYear" id="documentYear" value="{{$documentYear}}" required/>
                             </div>
                             <div class="form-group">
                                 <label for="documentNo">Document No. *</label>
-                                <input type="text" class="form-control" name="documentNo" id="documentNo" required/>
+                                <input type="text" class="form-control" name="documentNo" id="documentNo" value="{{$documentNo}}" required/>
                             </div>
                             <div class="form-group">
                                 <label for="documentType">Document Type *</label>
                                 <select class="form-control" name="documentType" id="documentType" required/>
-                                    <option value="">- Select One -</option>
+                                    <option value="{{$cDocTypeId}}">{{strtoupper($cDocType)}}</option>
                                     @foreach($documentType as $documentType)
                                         <option value="{{$documentType->id}}">{{strtoupper($documentType->document_type)}}</option>
                                     @endforeach
@@ -36,7 +37,7 @@
                             <div class="form-group">
                                 <label for="subject">Subject *</label>
                                 <select class="form-control" name="subject" id="subject" required/>
-                                    <option value="">- Select One -</option>
+                                    <option value="{{$cSubId}}">{{$cSub}}</option>
                                     @foreach($subjects as $subjects)
                                         <option value="{{$subjects->id}}">{{strtoupper($subjects->subjects)}}</option>
                                     @endforeach
@@ -44,15 +45,33 @@
                             </div>
                             <div class="form-group">
                                 <label for="title">Title *</label>
-                                <textarea class="form-control" name="title" id="title" rows="5" required></textarea>
+                                <textarea class="form-control" name="title" id="title" rows="5" required>{{$title}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="uploadFile">Upload File</label>
-                                <input type="file" class="form-control" name="uploadFile" id="uploadFile" required/>
+                                <button type="submit" class="btn btn-primary float-right">Save Changes</button>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary float-right">Save Document Type</button>
-                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Update Uploaded File</div>
+                <div class="card-body">
+                    @if(Session::has('flash_message_success_upload'))
+                        <div class="alert alert-success" role="alert">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fas fa-times"></i></a>
+                            {{Session::get('flash_message_success_upload')}}
+                        </div>
+                    @endif  
+                    <form action="/document_edit_upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
+                        {{csrf_field()}}
+                        <input type="hidden" name="docId" id="docId" value="{{$documentId}}">
+                        <div class="form-group">
+                            <label for="uploadFile">Upload File</label>
+                            <input type="file" class="form-control" name="uploadFile" id="uploadFile" required/>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-right">Upload Updated File</button>
                         </div>
                     </form>
                 </div>

@@ -8,13 +8,13 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Nunito', sans-serif;
+                font-family: arial,sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
@@ -58,6 +58,39 @@
                 text-transform: uppercase;
             }
 
+            .search-button{
+                background-color: #f2f2f2;
+                border: 1px solid #f2f2f2;
+                border-radius: 4px;
+                color: #5F6368;
+                font-family: arial,sans-serif;
+                font-size: 14px;
+                margin: 11px 4px;
+                padding: 0 16px;
+                line-height: 27px;
+                height: 36px;
+                min-width: 54px;
+                text-align: center;
+                cursor: pointer;
+                user-select: none;
+                width:150px;
+                
+            }
+
+            .search-textbox{
+                border-radius: 30px;
+                width:100%;
+            }
+
+            .logo{
+                margin-top:100px;
+            }
+
+            .footer{
+                margin:100px;
+                font-size:10px;
+            }
+
             .m-b-md {
                 margin-bottom: 30px;
             }
@@ -65,34 +98,21 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="logo">
+                    <img src="../images/spearchive.png">
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control search-textbox" name="search" id="search" required/>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="float-center search-button" name="searchButton" id="searchButton">Search Content</button>
+                        <a href="https://www.sanfernandocity.gov.ph" target="_blank" style="color: #5F6368"><button type="submit" class="float-center search-button">Official Website</a> 
+                    </div>
+                </div>
+                <div class="footer">
+                    Developed By: City Government of San Fernando, La Union
                 </div>
             </div>
         </div>

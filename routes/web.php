@@ -47,3 +47,11 @@ Route::post('/subject', 'DocumentController@subjectSave')->name('subject')->midd
 
 Route::get('/document', 'DocumentController@document')->name('document')->middleware('auth');
 Route::post('/document', 'DocumentController@documentSave')->name('document')->middleware('auth');
+
+Route::get('/document_edit/{id}', 'DocumentController@documentEdit')->name('document_edit')->middleware('auth');
+Route::post('/document_edit', 'DocumentController@documentEditSave')->name('document_edit')->middleware('auth');
+
+Route::post('/document_edit_upload', 'DocumentController@documentEditUpload')->name('document_edit')->middleware('auth');
+
+Route::get('/document_disable/{id}','DocumentController@documentDisable')->name('document_disable')->middleware('auth');
+Route::get('/document_enable/{id}','DocumentController@documentEnable')->name('document_disable')->middleware('auth');
