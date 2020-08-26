@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/search', 'SearchController@search')->name('search');
+Route::get('/search', 'SearchController@search')->name('search');
 
 Auth::routes([
     'register' => false, // Register Routes...
@@ -55,3 +57,4 @@ Route::post('/document_edit_upload', 'DocumentController@documentEditUpload')->n
 
 Route::get('/document_disable/{id}','DocumentController@documentDisable')->name('document_disable')->middleware('auth');
 Route::get('/document_enable/{id}','DocumentController@documentEnable')->name('document_disable')->middleware('auth');
+

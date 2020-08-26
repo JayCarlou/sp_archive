@@ -78,11 +78,12 @@
             }
 
             .search-textbox{
-                border-radius: 30px;
+                
                 width:100%;
             }
 
             .logo{
+                
                 margin-top:100px;
             }
 
@@ -100,16 +101,19 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="logo">
-                    <img src="../images/spearchive.png">
+                    <img src="../images/logo.png" style="width:250px">
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <input type="text" class="form-control search-textbox" name="search" id="search" required/>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="float-center search-button" name="searchButton" id="searchButton">Search Content</button>
-                        <a href="https://www.sanfernandocity.gov.ph" target="_blank" style="color: #5F6368"><button type="submit" class="float-center search-button">Official Website</a> 
-                    </div>
+                    <form action="/search" method="POST">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <input type="text" class="form-control search-textbox" name="search" id="search" required/>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="float-center search-button" name="searchButton" id="searchButton">Search Content</button>
+                            <a href="https://www.sanfernandocity.gov.ph" target="_blank" style="color: #5F6368"><button type="submit" class="float-center search-button">Official Website</a> 
+                        </div>
+                    </form>
                 </div>
                 <div class="footer">
                     Developed By: City Government of San Fernando, La Union

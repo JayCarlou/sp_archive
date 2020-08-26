@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'SP eArchive',
+    'title' => 'SP eArchives',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>SP</b> eArchive',
+    'logo' => '<b>SP</b> eArchives',
     'logo_img' => 'vendor/adminlte/dist/img/archive.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
