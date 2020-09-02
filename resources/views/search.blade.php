@@ -4,7 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>SP eArchives</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -113,6 +117,13 @@
             
 
         </style>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{{asset('/jqueryui/jquery-ui.min.css')}}">
+
+        <!-- Script -->
+        <script src="{{asset('/jqueryui/jquery-3.5.1.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('/jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
+
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>
@@ -136,57 +147,92 @@
                 <div class="col-md-8" style="">
                     Search result
                     <br>
-                    1,000,000 results were found for the ___
+                    {{number_format($counter)}} results were found for keyword "{{$keyword}}".
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    @foreach($results as $results)
+                    @foreach($results as $result)
                         <div class="card results">
                             <div class="card-body">
-                                <span style="color:red; font-weight:bold;">{{strtoupper($results->title)}}</span>
+                                <span style="color:red; font-weight:bold;">{{strtoupper($result->title)}}</span>
                                 <br>
                                 <table style="font-size:14px;">
                                     <tr>
                                         <td><b>Document Type</b></td>
-                                        <td>: {{strtoupper($results->document_type)}} - {{$results->document_no}}</td>
+                                        <td>: {{strtoupper($result->document_type)}} - {{$result->document_no}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Subject</b></td>
-                                        <td>: {{strtoupper($results->subjects)}}</td>
+                                        <td>: {{strtoupper($result->subjects)}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Year Published</b></td>
-                                        <td>: {{$results->document_year}}</td>
+                                        <td>: {{$result->document_year}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
                                             <br>
-                                            @if($results->file=="")
+                                            @if($result->file=="")
                                                 DOWNLOAD FILE NOT AVAILABLE
                                             @else
-                                                <a href="../upload/{{$results->file}}" target="_blank">
+                                                <a href="../upload/{{$result->file}}" target="_blank">
                                                 DOWNLOAD FILE
                                                 </a>
                                             @endif
                                         </td>
                                     </tr>
                                 </table>
-                                 
-                                
-                                
                             </div>
                         </div>
+                        
                     @endforeach
                 </div>
             </div>
         </div>
+            {{$results->links()}}
+
+      
         <div class="container footer">
             3rd Floor Marcos Building, F.I. Ortega Highway Barangay I
             <br>
             City of San Fernando, La Union Philippines - 2016
         </div>
+
+        <!-- Script -->
+        <script type="text/javascript">
+
+            // CSRF Token
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $(document).ready(function(){
+
+                $( "#search" ).autocomplete({
+                    source: function( request, response ) {
+                    // Fetch data
+                    $.ajax({
+                        url:"{{route('search.getKeyword')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                        _token: CSRF_TOKEN,
+                        search: request.term
+                        },
+                        success: function( data ) {
+                        response( data );
+                        }
+                    });
+                    },
+                    select: function (event, ui) {
+                        // Set selection
+                        $('#search').val(ui.item.label); // display the selected text
+                        // $('#employeeid').val(ui.item.value); // save selected id to input
+                        return false;
+                    }
+                });
+
+            });
+        </script>
     </body>
 </html>

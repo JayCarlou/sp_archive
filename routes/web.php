@@ -58,3 +58,6 @@ Route::post('/document_edit_upload', 'DocumentController@documentEditUpload')->n
 Route::get('/document_disable/{id}','DocumentController@documentDisable')->name('document_disable')->middleware('auth');
 Route::get('/document_enable/{id}','DocumentController@documentEnable')->name('document_disable')->middleware('auth');
 
+//search
+Route::get('/','SearchController@index');
+Route::post('/search/getKeyword/','SearchController@getKeyword')->name('search.getKeyword');

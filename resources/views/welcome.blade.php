@@ -4,7 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        
+        <title>SP eArchives</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -96,6 +100,13 @@
                 margin-bottom: 30px;
             }
         </style>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{{asset('/jqueryui/jquery-ui.min.css')}}">
+
+        <!-- Script -->
+        <script src="{{asset('/jqueryui/jquery-3.5.1.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('/jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
+        
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -120,5 +131,39 @@
                 </div>
             </div>
         </div>
+
+        <!-- Script -->
+        <script type="text/javascript">
+
+            // CSRF Token
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $(document).ready(function(){
+
+                $( "#search" ).autocomplete({
+                    source: function( request, response ) {
+                    // Fetch data
+                    $.ajax({
+                        url:"{{route('search.getKeyword')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                        _token: CSRF_TOKEN,
+                        search: request.term
+                        },
+                        success: function( data ) {
+                        response( data );
+                        }
+                    });
+                    },
+                    select: function (event, ui) {
+                        // Set selection
+                        $('#search').val(ui.item.label); // display the selected text
+                        // $('#employeeid').val(ui.item.value); // save selected id to input
+                        return false;
+                    }
+                });
+
+            });
+        </script>
     </body>
 </html>

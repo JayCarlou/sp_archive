@@ -5,20 +5,51 @@ use App\DocumentType;
 use App\Subject;
 use App\Document;
 use Illuminate\Http\Request;
+use DB;
 
 class SearchController extends Controller
 {
-    //
-    public function search(Request $req)
-    {
-        $search = "%".$req->search."%";
-        $results = Document::leftJoin('subject','subject.id','=','document.subject_id')
-                    ->leftJoin('document_type','document_type.id','=','document.document_type_id')
-                    ->where('document.title','like',$search)
-                    ->whereOr('subject.subjects','like',$search)
-                    ->orderBy('document.document_no','DESC')
-                    ->get();
+   //
+   public function search(Request $req)
+   {
+      $search = "%".$req->search."%";
+   
+      $results = Document::leftJoin('subject','subject.id','=','document.subject_id')
+                 ->leftJoin('document_type','document_type.id','=','document.document_type_id')
+                 ->whereOr('document.title','like',$search)
+                 ->where('subject.subjects','like',$search)
+                 
+                 ->paginate(2);
 
-        return view('search',['results'=>$results]);
-    }
+      $counter = Document::leftJoin('subject','subject.id','=','document.subject_id')
+                 ->leftJoin('document_type','document_type.id','=','document.document_type_id')
+                 ->whereOr('document.title','like',$search)
+                 ->where('subject.subjects','like',$search)
+                 ->orderBy('document.document_no','DESC')
+                 ->count();
+      
+      $keyword = ucwords($req->search);
+
+      return view('search',['results'=>$results, 'counter'=>$counter, 'keyword'=>$keyword]);
+   }
+
+   public function index(){
+      return view('welcome');
+   }
+   
+   public function getKeyword(Request $request){
+      $search = $request->search;
+      if($search == ''){
+         $subjects = Subject::orderby('subjects','asc')->select('subjects')->limit(5)->get();
+      }else{
+         $subjects = Subject::orderby('subjects','asc')->select('subjects')->where('subjects', 'like', '%' .$search . '%')->limit(5)->get();
+      }
+
+      $response = array();
+      foreach($subjects as $subjects){
+         $response[] = array("value"=>ucfirst(strtolower($subjects->subjects)));
+      }
+
+      return response()->json($response);
+   }
 }
