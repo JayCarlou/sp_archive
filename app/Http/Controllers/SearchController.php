@@ -12,27 +12,33 @@ class SearchController extends Controller
    //
    public function search(Request $req)
    {
-      $search = "%".$req->search."%";
-      $keyword = ucwords($req->search);
-   
-      $results = Document::leftJoin('subject','subject.id','=','document.subject_id')
-                 ->leftJoin('document_type','document_type.id','=','document.document_type_id')
-                 ->orWhere('document.title','like',$search)
-                 ->orWhere('subject.subjects','like',$search)
-                 ->orderBy('document.document_year','DESC')
-                 ->orderBy('document.document_no','DESC')
-                 ->paginate(5);
-
-      $results->withPath('search?search='.$keyword);
-
-      $counter = Document::leftJoin('subject','subject.id','=','document.subject_id')
-                 ->leftJoin('document_type','document_type.id','=','document.document_type_id')
-                 ->orWhere('document.title','like',$search)
-                 ->orWhere('subject.subjects','like',$search)
-                 
-                 ->count();
+      if($req->search==""){
+         return \redirect('/');
+      }
+      else{
+         $search = "%".$req->search."%";
+         $keyword = ucwords($req->search);
       
-      return view('search',['results'=>$results, 'counter'=>$counter, 'keyword'=>$keyword]);
+         $results = Document::leftJoin('subject','subject.id','=','document.subject_id')
+                  ->leftJoin('document_type','document_type.id','=','document.document_type_id')
+                  ->orWhere('document.title','like',$search)
+                  ->orWhere('subject.subjects','like',$search)
+                  ->orderBy('document.document_year','DESC')
+                  ->orderBy('document.document_no','DESC')
+                  ->paginate(5);
+
+         $results->withPath('search?search='.$keyword);
+
+         $counter = Document::leftJoin('subject','subject.id','=','document.subject_id')
+                  ->leftJoin('document_type','document_type.id','=','document.document_type_id')
+                  ->orWhere('document.title','like',$search)
+                  ->orWhere('subject.subjects','like',$search)
+                  
+                  ->count();
+         
+         return view('search',['results'=>$results, 'counter'=>$counter, 'keyword'=>$keyword]);
+      }
+      
    }
 
    public function index(){
