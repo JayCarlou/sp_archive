@@ -161,19 +161,22 @@
                                 <br>
                                 <table style="font-size:14px;">
                                     <tr>
-                                        <td><b>Document Type</b></td>
-                                        <td>: {{strtoupper($result->document_type)}} - {{$result->document_no}}</td>
+                                        <td width="120px;"><b>Document Type</b></td>
+                                        <td>:</td>
+                                        <td>{{strtoupper($result->document_type)}} - {{$result->document_no}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Subject</b></td>
-                                        <td>: {{strtoupper($result->subjects)}}</td>
+                                        <td>:</td>
+                                        <td>{{strtoupper($result->subjects)}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Year Published</b></td>
-                                        <td>: {{$result->document_year}}</td>
+                                        <td>:</td>
+                                        <td>{{$result->document_year}}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="3">
                                             <br>
                                             @if($result->file=="")
                                                 DOWNLOAD FILE NOT AVAILABLE
@@ -191,10 +194,11 @@
                     @endforeach
                 </div>
             </div>
+            <div class="row justify-content-center">
+                {{$results->links()}}   
+            </div>
         </div>
-            {{$results->links()}}
-
-      
+  
         <div class="container footer">
             3rd Floor Marcos Building, F.I. Ortega Highway Barangay I
             <br>
