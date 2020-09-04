@@ -23,9 +23,13 @@ class SearchController extends Controller
                   ->leftJoin('document_type','document_type.id','=','document.document_type_id')
                   ->orWhere('document.title','like',$search)
                   ->orWhere('subject.subjects','like',$search)
+                  ->where(function ($query) {
+                        $query->where('document.state', '=', '1');
+                  })
                   ->orderBy('document.document_year','DESC')
                   ->orderBy('document.document_no','DESC')
                   ->paginate(5);
+                  // ->get();
 
          $results->withPath('search?search='.$keyword);
 
@@ -33,13 +37,16 @@ class SearchController extends Controller
                   ->leftJoin('document_type','document_type.id','=','document.document_type_id')
                   ->orWhere('document.title','like',$search)
                   ->orWhere('subject.subjects','like',$search)
-                  
+                  ->where(function ($query) {
+                     $query->where('document.state', '=', '1');
+                  })
                   ->count();
          
          return view('search',['results'=>$results, 'counter'=>$counter, 'keyword'=>$keyword]);
       }
       
    }
+
 
    public function index(){
       return view('welcome');

@@ -146,10 +146,12 @@ class DocumentController extends Controller
         $record = Document::find($documentId);
         $file = $record->file;
         
-        if(file_exists("../public/upload/".$file)){
-            unlink("../public/upload/".$file);
+        if(file_exists("/public/upload/".$file)){
+            unlink("/public/upload/".$file);
+            
         }else{
             //no action
+            
         }
 
         function randomString($length = 20)

@@ -33,7 +33,7 @@
                                     <td>{{$documents->subjects}}</td>
                                     <td>{{$documents->title}}</td>
                                     <td>
-                                        <a href="document_edit/{{$documents->id}}" title="Update Document">
+                                        <a href="document_edit/{{$documents->id}}" target="_blank" title="Update Document">
                                             <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
                                         </a>
                                         @if($documents->state=="1")
